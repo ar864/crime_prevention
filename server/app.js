@@ -11,12 +11,14 @@ import usersRouter from "./routes/users.js";
 
 const app = express();
 
-const corsOptions = {
-  origin: process.env.CLIENT_URL || "http://localhost:5173",
-  credentials: true,
-};
+// Disable CORS strict origin checks entirely. Allow everything.
+app.use(cors({
+  origin: "*",
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  preflightContinue: false,
+  optionsSuccessStatus: 204
+}));
 
-app.use(cors(corsOptions));
 app.use(express.json());
 app.use(morgan("dev"));
 
@@ -30,8 +32,6 @@ app.use("/api/predict-risk", predictRouter);
 app.use("/api/police-stations", policeStationsRouter);
 app.use("/api/alerts", alertsRouter);
 app.use("/api/users", usersRouter);
-
-
 
 app.use((err, _req, res, _next) => {
   const statusCode = err.status || 500;
