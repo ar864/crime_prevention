@@ -31,7 +31,7 @@ const initialForm = {
   longitude: ""
 };
 
-export default function IncidentForm({ onCreated }) {
+export default function IncidentForm({ onCreated, user }) {
   const [form, setForm] = useState(initialForm);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -105,7 +105,7 @@ export default function IncidentForm({ onCreated }) {
             longitude: form.longitude ? Number(form.longitude) : undefined
           },
           severity: Number(form.severity),
-          reportedBy: form.reportedBy || "anonymous",
+          reportedBy: user?.username || form.reportedBy || "anonymous",
           nearestStation: nearestStation
             ? {
                 id: nearestStation.id,
@@ -218,11 +218,6 @@ export default function IncidentForm({ onCreated }) {
           placeholder="Severity 1-5"
         />
       </div>
-      <input
-        value={form.reportedBy}
-        onChange={(e) => setForm({ ...form, reportedBy: e.target.value })}
-        placeholder="Reported by (optional)"
-      />
       <button disabled={loading} type="submit">
         {loading ? "Saving..." : "Submit Report"}
       </button>

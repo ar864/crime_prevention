@@ -133,7 +133,7 @@ export default function App() {
       </section>
 
       <section className="grid">
-        <IncidentForm onCreated={handleCreated} />
+        <IncidentForm onCreated={handleCreated} user={user} />
         <RiskPanel />
       </section>
 
@@ -141,17 +141,17 @@ export default function App() {
         <CrimeHeatmap incidents={incidents} />
         <RealtimeAlerts alerts={alerts} />
       </section>
-
-
-
+      
       <section className="card">
-        <h2>Recent Incident Reports</h2>
+        <h2>My Incident Reports</h2>
         {loading ? <p>Loading incidents...</p> : null}
-        {!loading && incidents.length === 0 ? (
-          <p>No incidents yet. Submit the first report.</p>
+        {!loading && incidents.filter(item => item.reportedBy === user?.username).length === 0 ? (
+          <p>No incidents found. Submit your first report.</p>
         ) : null}
         <ul className="incident-list">
-          {incidents.map((item) => (
+          {incidents
+            .filter((item) => item.reportedBy === user?.username)
+            .map((item) => (
             <li key={item._id}>
               <div>
                 <strong>{item.title}</strong>
