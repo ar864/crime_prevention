@@ -4,7 +4,6 @@ import RiskPanel from "./components/RiskPanel.jsx";
 import LoginPage from "./components/LoginPage.jsx";
 import CrimeHeatmap from "./components/CrimeHeatmap.jsx";
 import RealtimeAlerts from "./components/RealtimeAlerts.jsx";
-import AdminDashboard from "./components/AdminDashboard.jsx";
 import AdminPage from "./components/AdminPage.jsx";
 
 export default function App() {
@@ -143,7 +142,7 @@ export default function App() {
         <RealtimeAlerts alerts={alerts} />
       </section>
 
-      <AdminDashboard incidents={incidents} alerts={alerts} />
+
 
       <section className="card">
         <h2>Recent Incident Reports</h2>
